@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("movie")
@@ -26,6 +27,18 @@ public class MovieController {
     @PutMapping("update/{id}")
     ResponseEntity<String> updateMovie(@PathVariable int id,@RequestBody Movie movie){
         return movieService.updateMovie(id,movie);
+    }
+    @GetMapping("getmovie/{movieName}")
+    ResponseEntity<?> getByMovie(@PathVariable String movieName){
+        return movieService.getByMovie(movieName);
+    }
+    @DeleteMapping("delete/{movieName}")
+    ResponseEntity<String> deleteMovie(@PathVariable String movieName){
+        return movieService.deleteMovie(movieName);
+    }
+    @DeleteMapping("delete1/{movieName}/{year}")
+    ResponseEntity<String> deleteMovieByYear(@PathVariable String movieName,@PathVariable int year) {
+        return movieService.deleteMovieByYear(movieName, year);
     }
 
 
