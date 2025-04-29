@@ -20,13 +20,21 @@ public class MovieService {
 
         Movie movie1 = new Movie();
 
-        movie1.setMovieName(movie.getMovieName());
-        movie1.setGenre(movie.getGenre());
-        movie1.setReleaseYear(movie.getReleaseYear());
+        if(movieDao.existsByMovieName(movie.getMovieName())){
+            throw new RuntimeException("Movie already exists");
 
-        movieDao.save(movie1);
+        }
+        else {
 
-        return new ResponseEntity<>(movie1, HttpStatus.CREATED);
+            movie1.setMovieName(movie.getMovieName());
+            movie1.setGenre(movie.getGenre());
+            movie1.setReleaseYear(movie.getReleaseYear());
+
+
+            movieDao.save(movie1);
+
+            return new ResponseEntity<>(movie1, HttpStatus.CREATED);
+        }
 
     }
 
